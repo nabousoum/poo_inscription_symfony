@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello ProfesseurController!{% endblock %}
+{% block title %}Hello ModuleController!{% endblock %}
 
 {% block body %}
 <style>
@@ -8,28 +8,24 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<h1>LISTE DES CLASSES</h1>
+<h1>LISTE DES MODULES</h1>
 <table class="table table-striped">
   <thead>
     <tr>
-      <th scope="col">Nom Complet</th>
-      <th scope="col">Grade</th>
-      <th scope="col">Sexe</th>
+      <th scope="col">Libelle</th>
     </tr>
   </thead>
   <tbody>
-    {% for prof in profs %}
+    {% for module in modules %}
         
     <tr>
-      <td>{{prof.nomComplet}}</td>
-      <td>{{prof.grade}}</td>
-      <td>{{prof.sexe}}</td>
+      <td>{{module.libelle}}</td>
     </tr>
      {% endfor %} 
   </tbody>
 </table>
 <div class="d-flex justify-content-center">
-{% do profs.setPageRange(10) %}
-{{knp_pagination_render(profs,'pagination.html.twig')}}
+{% do modules.setPageRange(10) %}
+{{knp_pagination_render(modules,'pagination.html.twig')}}
 </div>
 {% endblock %}
