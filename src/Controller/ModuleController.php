@@ -22,7 +22,7 @@ class ModuleController extends AbstractController
         $modules = $paginator->paginate(
             $data,
             $request->query->getInt('page',1),
-            4
+            5
         );
         return $this->render('module/index.html.twig', [
             'controller_name' => 'ModuleController',

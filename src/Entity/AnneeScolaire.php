@@ -2,22 +2,26 @@
 
 namespace App\Entity;
 
-use App\Repository\EtudiantRepository;
+use App\Repository\AnneeScolaireRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: EtudiantRepository::class)]
-class Etudiant extends User
+#[ORM\Entity(repositoryClass: AnneeScolaireRepository::class)]
+class AnneeScolaire
 {
+    #[ORM\Id]
+    #[ORM\GeneratedValue]
+    #[ORM\Column(type: 'integer')]
+    private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $adresse;
+    private $libelle;
 
     #[ORM\Column(type: 'string', length: 255)]
-    private $matricule;
+    private $etat;
 
-    #[ORM\OneToMany(mappedBy: 'etudiant', targetEntity: Inscription::class)]
+    #[ORM\OneToMany(mappedBy: 'annee', targetEntity: Inscription::class)]
     private $inscriptions;
 
     public function __construct()
@@ -25,27 +29,31 @@ class Etudiant extends User
         $this->inscriptions = new ArrayCollection();
     }
 
-
-    public function getAdresse(): ?string
+    public function getId(): ?int
     {
-        return $this->adresse;
+        return $this->id;
     }
 
-    public function setAdresse(string $adresse): self
+    public function getLibelle(): ?string
     {
-        $this->adresse = $adresse;
+        return $this->libelle;
+    }
+
+    public function setLibelle(string $libelle): self
+    {
+        $this->libelle = $libelle;
 
         return $this;
     }
 
-    public function getMatricule(): ?string
+    public function getEtat(): ?string
     {
-        return $this->matricule;
+        return $this->etat;
     }
 
-    public function setMatricule(string $matricule): self
+    public function setEtat(string $etat): self
     {
-        $this->matricule = $matricule;
+        $this->etat = $etat;
 
         return $this;
     }
@@ -62,7 +70,7 @@ class Etudiant extends User
     {
         if (!$this->inscriptions->contains($inscription)) {
             $this->inscriptions[] = $inscription;
-            $inscription->setEtudiant($this);
+            $inscription->setAnnee($this);
         }
 
         return $this;
@@ -72,8 +80,8 @@ class Etudiant extends User
     {
         if ($this->inscriptions->removeElement($inscription)) {
             // set the owning side to null (unless already changed)
-            if ($inscription->getEtudiant() === $this) {
-                $inscription->setEtudiant(null);
+            if ($inscription->getAnnee() === $this) {
+                $inscription->setAnnee(null);
             }
         }
 
