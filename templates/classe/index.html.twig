@@ -32,7 +32,7 @@
           <td>{{classe.filiere}}</td>
           <td>{{classe.niveau}}</td>
           <td> 
-            <a href="" class="btn btn-warning btn-circle">
+            <a href="{{path('app_edit_classe',{"id" : classe.id})}}" class="btn btn-warning btn-circle">
               <i class="fa-solid fa-pen-to-square"></i>
             </a>
             <a href="{{path('app_delete_classe',{"id" : classe.id})}}" class="btn btn-danger btn-circle" onclick="return confirm('Etes-vous sure de vouloir supprimer?')">

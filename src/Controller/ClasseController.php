@@ -39,7 +39,7 @@ class ClasseController extends AbstractController
     }
 
     #[Route('/classe/new', name: 'app_create_classe')]
-   // #[Route('/classe/{id}/edit', name: 'app_create_classe')]
+   #[Route('/classe/{id}/edit', name: 'app_edit_classe')]
     public function create(Classe $classe = null,Request $request, EntityManagerInterface $manager){
 
         if(!$classe){
@@ -58,13 +58,14 @@ class ClasseController extends AbstractController
 
             $manager->persist($classe);
             $manager->flush();
-
-            return $this->redirectToRoute('app_classe');
+            $this->addFlash('success','Classe bien Enregistré ');
+            //return $this->redirectToRoute('app_classe');
 
         }
 
         return  $this->render('classe/create.html.twig',[
-            'formClasse' => $form->createView()
+            'formClasse' => $form->createView(),
+            'editMode' => $classe->getId() !== null
         ]);
     }
 
@@ -73,6 +74,7 @@ class ClasseController extends AbstractController
         $em =  $doctrine->getManager();
         $em->remove($classe);
         $em->flush();
+        $this->addFlash('success','la classe a été supprimé avec succes ');
         return $this->redirectToRoute('app_classe');
     }
 }
