@@ -8,32 +8,47 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 <br><br>
-<h2 align ="center">LISTE DES CLASSES</h2><br>
-<a href="{{path('app_create_classe')}}">
-  <button type="button" class="btn btn-primary">AJOUTER</button>
-</a>
-<br><br>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">Libelle</th>
-      <th scope="col">Filiere</th>
-      <th scope="col">Niveau</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for classe in classes %}
-        
-    <tr>
-      <td>{{classe.libelle}}</td>
-      <td>{{classe.filiere}}</td>
-      <td>{{classe.niveau}}</td>
-    </tr>
-     {% endfor %} 
-  </tbody> 
-</table>
-<div class="d-flex justify-content-center">
-  {% do classes.setPageRange(10) %}
-  {{knp_pagination_render(classes,'pagination.html.twig')}}
+<div class="container ml-5">
+    <h2 align ="center">LISTE DES CLASSES</h2><br>
+    <a href="{{path('app_create_classe')}}">
+      <button type="button" class="btn btn-primary">AJOUTER</button>
+    </a>
+    <br><br>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Libelle</th>
+          <th scope="col">Filiere</th>
+          <th scope="col">Niveau</th>
+          <th scope="col">Actions</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        {% for classe in classes %}
+            
+        <tr>
+          <td>{{classe.libelle}}</td>
+          <td>{{classe.filiere}}</td>
+          <td>{{classe.niveau}}</td>
+          <td> 
+            <a href="" class="btn btn-warning btn-circle">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </a>
+            <a href="{{path('app_delete_classe',{"id" : classe.id})}}" class="btn btn-danger btn-circle" onclick="return confirm('Etes-vous sure de vouloir supprimer?')">
+              <i class="fas fa-trash"></i>
+            </a>
+            <a href="" class="btn btn-info btn-circle">
+              <i class="fas fa-info"></i>
+            </a>
+          </td>
+        </tr>
+        {% endfor %} 
+      </tbody> 
+    </table>
+    <div class="d-flex flex-end">
+      {% do classes.setPageRange(10) %}
+      {{knp_pagination_render(classes,'pagination.html.twig')}}
+    </div>
 </div>
 {% endblock %}

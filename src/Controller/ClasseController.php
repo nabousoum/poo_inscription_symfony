@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Doctrine\Persistence\ObjectManager;
+use Doctrine\Persistence\ManagerRegistry;
 
 class ClasseController extends AbstractController
 {
@@ -65,5 +66,13 @@ class ClasseController extends AbstractController
         return  $this->render('classe/create.html.twig',[
             'formClasse' => $form->createView()
         ]);
+    }
+
+    #[Route('/classe/{id}/delete', name: 'app_delete_classe')]
+    public function delete(Classe $classe,ManagerRegistry $doctrine):Response{
+        $em =  $doctrine->getManager();
+        $em->remove($classe);
+        $em->flush();
+        return $this->redirectToRoute('app_classe');
     }
 }

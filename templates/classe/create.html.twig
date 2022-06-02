@@ -2,15 +2,30 @@
 {% form_theme formClasse 'bootstrap_5_layout.html.twig' %}
 
 {% block body %}
+<div class="container mt-5" >
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-block bg-register-image">
+                       <img src="{{asset('images/register.png')}}" class="img-fluid">
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Ajouter Adherent</h1>
+                            </div>
+                            {{ form_start(formClasse) }}
 
-<h2 align ="center">AJOUTER CLASSE</h2>
-
-{{ form_start(formClasse) }}
-
-    {{ form_row(formClasse.libelle,{'attr':{'placeholder': "libelle de la classe"}}) }}
-    {{ form_row(formClasse.filiere,{'attr':{'placeholder': "filiere de la classe"}}) }}
-    {{ form_row(formClasse.niveau,{'attr':{'placeholder': "niveau de la classe"}}) }}
-    <button type="submit" class="btn btn-success">Ajouter</button>
-{{ form_end(formClasse)  }}
-
+                                {{ form_row(formClasse.libelle,{'attr':{'placeholder': "libelle de la classe"}}) }}
+                                {{ form_row(formClasse.filiere,{'attr':{'placeholder': "filiere de la classe"}}) }}
+                                {{ form_row(formClasse.niveau,{'attr':{'placeholder': "niveau de la classe"}}) }}
+                                <button type="submit" class="btn btn-success">Ajouter</button>
+                            {{ form_end(formClasse)  }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
