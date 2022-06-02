@@ -38,10 +38,13 @@ class ClasseController extends AbstractController
     }
 
     #[Route('/classe/new', name: 'app_create_classe')]
-    public function create(Request $request, EntityManagerInterface $manager){
+   // #[Route('/classe/{id}/edit', name: 'app_create_classe')]
+    public function create(Classe $classe = null,Request $request, EntityManagerInterface $manager){
 
-        $classe = new Classe();
-
+        if(!$classe){
+            $classe = new Classe();
+        }
+        
         $form = $this->createFormBuilder($classe)
                     ->add('libelle',TextType::class)
                     ->add('filiere',TextType::class)
