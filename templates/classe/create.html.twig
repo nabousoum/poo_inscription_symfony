@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+{% form_theme formClasse 'bootstrap_5_layout.html.twig' %}
+
+{% block body %}
+
+<h2 align ="center">AJOUTER CLASSE</h2>
+
+{{ form_start(formClasse) }}
+
+    {{ form_row(formClasse.libelle,{'attr':{'placeholder': "libelle de la classe"}}) }}
+    {{ form_row(formClasse.filiere,{'attr':{'placeholder': "filiere de la classe"}}) }}
+    {{ form_row(formClasse.niveau,{'attr':{'placeholder': "niveau de la classe"}}) }}
+    <button type="submit" class="btn btn-success">Ajouter</button>
+{{ form_end(formClasse)  }}
+
+{% endblock %}

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Classe;
 use App\Repository\ClasseRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -9,12 +10,16 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use ContainerMibWvKx\PaginatorInterface_82dac15;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Doctrine\Persistence\ObjectManager;
 
 class ClasseController extends AbstractController
 {
-    #[Route('/classe', name: 'app_classe')]
+    #[Route('/classe/rp', name: 'app_classe')]
     public function index(
         ClasseRepository $repo, SessionInterface $session,
         PaginatorInterface $paginator,
@@ -29,6 +34,33 @@ class ClasseController extends AbstractController
         return $this->render('classe/index.html.twig', [
             'controller_name' => 'ClasseController',
             'classes'=>$classes
+        ]);
+    }
+
+    #[Route('/classe/new', name: 'app_create_classe')]
+    public function create(Request $request, EntityManagerInterface $manager){
+
+        $classe = new Classe();
+
+        $form = $this->createFormBuilder($classe)
+                    ->add('libelle',TextType::class)
+                    ->add('filiere',TextType::class)
+                    ->add('niveau',TextType::class)
+                    ->getForm();
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+
+            $manager->persist($classe);
+            $manager->flush();
+
+            return $this->redirectToRoute('app_classe');
+
+        }
+
+        return  $this->render('classe/create.html.twig',[
+            'formClasse' => $form->createView()
         ]);
     }
 }

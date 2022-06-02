@@ -8,7 +8,11 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 <br><br>
-<h2>LISTE DES CLASSES</h2>
+<h2 align ="center">LISTE DES CLASSES</h2><br>
+<a href="{{path('app_create_classe')}}">
+  <button type="button" class="btn btn-primary">AJOUTER</button>
+</a>
+<br><br>
 <table class="table table-striped">
   <thead>
     <tr>
@@ -26,10 +30,10 @@
       <td>{{classe.niveau}}</td>
     </tr>
      {% endfor %} 
-  </tbody>
+  </tbody> 
 </table>
 <div class="d-flex justify-content-center">
-{% do classes.setPageRange(10) %}
-{{knp_pagination_render(classes,'pagination.html.twig')}}
+  {% do classes.setPageRange(10) %}
+  {{knp_pagination_render(classes,'pagination.html.twig')}}
 </div>
 {% endblock %}
