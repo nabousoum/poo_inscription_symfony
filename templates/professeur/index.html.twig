@@ -8,28 +8,45 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 <br><br>
-<h2>LISTE DES PROFESSEURS</h2>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">Nom Complet</th>
-      <th scope="col">Grade</th>
-      <th scope="col">Sexe</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for prof in profs %}
-        
-    <tr>
-      <td>{{prof.nomComplet}}</td>
-      <td>{{prof.grade}}</td>
-      <td>{{prof.sexe}}</td>
-    </tr>
-     {% endfor %} 
-  </tbody>
-</table>
-<div class="d-flex justify-content-center">
-{% do profs.setPageRange(10) %}
-{{knp_pagination_render(profs,'pagination.html.twig')}}
+<div class="container ml-5">
+    <h2 align="center">LISTE DES PROFESSEURS</h2><br>
+     <a href="{{path('app_create_prof')}}">
+      <button type="button" class="btn btn-primary">AJOUTER</button>
+    </a><br><br>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Nom Complet</th>
+          <th scope="col">Grade</th>
+          <th scope="col">Sexe</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for prof in profs %}
+            
+        <tr>
+          <td>{{prof.nomComplet}}</td>
+          <td>{{prof.grade}}</td>
+          <td>{{prof.sexe}}</td>
+          <td>
+            <a href="{{path('app_edit_prof',{"id" : prof.id})}}" class="btn btn-warning btn-circle">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </a>
+            <a href="{{path('app_delete_prof',{"id" : prof.id})}}" class="btn btn-danger btn-circle" onclick="return confirm('Etes-vous sure de vouloir supprimer?')">
+              <i class="fas fa-trash"></i>
+            </a>
+            <a href="{{path('app_detail_prof',{"id" : prof.id})}}" class="btn btn-info btn-circle">
+              <i class="fas fa-info"></i>
+            </a>
+          </td>
+        </tr>
+        {% endfor %} 
+      </tbody>
+    </table>
+    <div class="d-flex flex-end">
+      {% do profs.setPageRange(10) %}
+      {{knp_pagination_render(profs,'pagination.html.twig')}}
+    </div>
 </div>
 {% endblock %}

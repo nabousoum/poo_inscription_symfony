@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<section class="gradient-custom">
+  <div class="container py-5 h-100">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-12 col-lg-9 col-xl-7">
+        <div class="card shadow-2-strong card-registration" style="border-radius: 50px; border-color:pink; box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px, rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px; ">
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">DETAILS DE LA CLASSE</h3>
+                <div class="container mt-5">
+                    <p><u>LIBELLE</u> : {{ classes.libelle }}</p></br>
+                    <p><u>FILIERE</u> : {{ classes.filiere }}</p><br>
+                    <p><u>NIVEAU</u> : {{ classes.niveau }}</p><br>
+                    <p><u>LES PROFESSEURS DE LA CLASSE</u> :</p><br>
+                    {% for profs in classes.professeurs %}
+                        {{ profs.nomComplet }}
+                        - -{{ profs.grade }}
+                        - -{{ profs.sexe }}<br>
+                    {% endfor %}
+                </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

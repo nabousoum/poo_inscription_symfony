@@ -9,6 +9,10 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Doctrine\Persistence\ManagerRegistry;
 
 class ProfesseurController extends AbstractController
 {
@@ -30,4 +34,60 @@ class ProfesseurController extends AbstractController
             'profs' => $profs
         ]);
     }
+
+    #[Route('/professeur/new', name: 'app_create_prof')]
+    #[Route('/professeur/{id}/edit', name: 'app_edit_prof')]
+     public function create(Professeur $prof = null,Request $request, EntityManagerInterface $manager){
+ 
+         if(!$prof){
+             $prof = new Professeur();
+         }
+         
+         $form = $this->createFormBuilder($prof)
+                     ->add('nomComplet',TextType::class)
+                     ->add('grade',TextType::class)
+                     ->add('sexe', ChoiceType::class, [
+                        'choices'  => [
+                            'Masculin' => 'masculin',
+                            'Feminin' => 'feminin'
+                        ]])
+                     ->getForm();
+ 
+         $form->handleRequest($request);
+ 
+         if($form->isSubmitted() && $form->isValid()){
+ 
+             $manager->persist($prof);
+             $manager->flush();
+             if(!$prof->getId()){
+                 $this->addFlash('success','le professeur a bien été  modifié ');
+             }
+             else{
+                 $this->addFlash('success','le professeur a bien été  enregistré ');
+             }
+ 
+         }
+ 
+         return  $this->render('professeur/create.html.twig',[
+             'formProf' => $form->createView(),
+             'editMode' => $prof->getId() !== null
+         ]);
+     }
+
+     #[Route('/professeur/{id}/delete', name: 'app_delete_prof')]
+     public function delete(Professeur $prof,ManagerRegistry $doctrine):Response{
+         $em =  $doctrine->getManager();
+         $em->remove($prof);
+         $em->flush();
+         return $this->redirectToRoute('app_professeur');
+     }
+
+     #[Route('/professeur/{id}/detail', name: 'app_detail_prof')]
+     public function detail(Professeur $prof,ManagerRegistry $doctrine){
+         $profs = $doctrine->getRepository(Professeur::class)->find($prof->getId());
+         //dd($classes);
+         return  $this->render('professeur/detail.html.twig',[
+            'profs' => $profs
+         ]);
+     }
 }

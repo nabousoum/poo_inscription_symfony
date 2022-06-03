@@ -58,8 +58,12 @@ class ClasseController extends AbstractController
 
             $manager->persist($classe);
             $manager->flush();
-            $this->addFlash('success','Classe bien Enregistré ');
-            //return $this->redirectToRoute('app_classe');
+            if(!$classe->getId()){
+                $this->addFlash('success','la classe a bien été  modifié ');
+            }
+            else{
+                $this->addFlash('success','la classe a bien été  enregistré ');
+            }
 
         }
 
@@ -74,7 +78,16 @@ class ClasseController extends AbstractController
         $em =  $doctrine->getManager();
         $em->remove($classe);
         $em->flush();
-        $this->addFlash('success','la classe a été supprimé avec succes ');
         return $this->redirectToRoute('app_classe');
     }
+
+    #[Route('/classe/{id}/detail', name: 'app_detail_classe')]
+    public function detail(Classe $classe,ManagerRegistry $doctrine){
+        $classes = $doctrine->getRepository(Classe::class)->find($classe->getId());
+        //dd($classes);
+        return  $this->render('classe/detail.html.twig',[
+           'classes' => $classes
+        ]);
+    }
+
 }

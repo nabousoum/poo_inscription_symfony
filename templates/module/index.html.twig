@@ -8,24 +8,45 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 <br><br>
-<h2>LISTE DES MODULES</h2>
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th scope="col">Libelle</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for module in modules %}
-        
-    <tr>
-      <td>{{module.libelle}}</td>
-    </tr>
-     {% endfor %} 
-  </tbody>
-</table>
-<div class="d-flex justify-content-center">
-{% do modules.setPageRange(10) %}
-{{knp_pagination_render(modules,'pagination.html.twig')}}
+<div class="container ml-5">
+    <h2 align="center">LISTE DES MODULES</h2><br>
+      {{ form_start(formModule) }}
+          {{ form_row(formModule.libelle,{'attr':{'placeholder': "libelle de la module"}}) }}
+        <button type="submit" class="btn btn-primary">VALIDER</button>
+      {{ form_end(formModule)  }}
+    <br>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Libelle</th>
+          <th scope="col">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for module in modules %}
+            
+        <tr>
+           <td>{{module.id}}</td>
+          <td>{{module.libelle}}</td>
+          <td>
+            <a href="" class="btn btn-warning btn-circle">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </a>
+            <a href="" class="btn btn-danger btn-circle" onclick="return confirm('Etes-vous sure de vouloir supprimer?')">
+              <i class="fas fa-trash"></i>
+            </a>
+            <a href="" class="btn btn-info btn-circle">
+              <i class="fas fa-info"></i>
+            </a>
+          </td>
+        </tr>
+        {% endfor %} 
+      </tbody>
+    </table>
+    <div class="d-flex flex-end">
+    {% do modules.setPageRange(10) %}
+    {{knp_pagination_render(modules,'pagination.html.twig')}}
+    </div>
 </div>
 {% endblock %}
