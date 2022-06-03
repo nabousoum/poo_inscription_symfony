@@ -25,7 +25,8 @@ class ModuleController extends AbstractController
          EntityManagerInterface $manager
         ): Response
     {
-        $data = $repo->findAll();
+       // $data = $repo->findAll();
+        $data = $repo->findBy(array(), array('id' => 'desc'));
         $modules = $paginator->paginate(
             $data,
             $request->query->getInt('page',1),
@@ -69,12 +70,12 @@ class ModuleController extends AbstractController
         return $this->redirectToRoute('app_module');
     }
 
-    #[Route('/classe/{id}/detail', name: 'app_detail_classe')]
+    #[Route('/module/{id}/detail', name: 'app_detail_module')]
     public function detail(Module $module,ManagerRegistry $doctrine){
-        $classes = $doctrine->getRepository(Classe::class)->find($module->getId());
+        $modules = $doctrine->getRepository(Module::class)->find($module->getId());
         //dd($classes);
         return  $this->render('module/detail.html.twig',[
-           'classes' => $classes
+           'modules' => $modules
         ]);
     }
 }

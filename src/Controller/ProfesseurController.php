@@ -23,7 +23,8 @@ class ProfesseurController extends AbstractController
         Request $request
         ): Response
     {
-       $data = $repo->findAll();
+       //$data = $repo->findAll();
+       $data = $repo->findBy(array(), array('id' => 'desc'));
        $profs = $paginator->paginate(
         $data,
         $request->query->getInt('page',1),
