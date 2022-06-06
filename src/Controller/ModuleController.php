@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 use App\Entity\Module;
+use App\Form\ModuleType;
 use App\Repository\ModuleRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -9,7 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Doctrine\Persistence\ManagerRegistry;
 
 class ModuleController extends AbstractController
@@ -36,9 +36,7 @@ class ModuleController extends AbstractController
             $module = new Module();
         }
         
-        $form = $this->createFormBuilder($module)
-                    ->add('libelle',TextType::class)
-                    ->getForm();
+        $form = $this->createForm(ModuleType::class,$module);
 
         $form->handleRequest($request);
 

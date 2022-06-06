@@ -1,20 +1,54 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello InscriptionController!{% endblock %}
+{% block title %}Hello ClasseController!{% endblock %}
 
 {% block body %}
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
+<br><br>
+<div class="container ml-5">
+    <h2 align ="center">LISTE DES INSCRIPTIONS</h2><br>
+    <a href="{{path('app_create_inscription')}}">
+      <button type="button" class="btn btn-primary">AJOUTER</button>
+    </a>
+    <br><br>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Nom complet</th>
+          <th scope="col">Matricule</th>
+          <th scope="col">Adresse</th>
+          <th scope="col">Sexe</th>
+          <th scope="col">Actions</th>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/opt/lampp/htdocs/my_project_directory/src/Controller/InscriptionController.php'|file_link(0) }}">src/Controller/InscriptionController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/opt/lampp/htdocs/my_project_directory/templates/inscription/index.html.twig'|file_link(0) }}">templates/inscription/index.html.twig</a></code></li>
-    </ul>
+        </tr>
+      </thead>
+      <tbody>
+        {% for inscription in inscriptions %}
+            
+        <tr>
+          <td>{{inscription.etudiant.nomComplet}}</td>
+          <td>{{inscription.etudiant.matricule}}</td>
+          <td>{{inscription.etudiant.adresse}}</td>
+          <td>{{inscription.etudiant.sexe}}</td>
+
+          <td> 
+            <a href="{{path('app_create_reinscription',{"id" : inscription.id})}}" class="btn btn-warning btn-circle">
+              <i class="fa-solid fa-address-card"></i> REINSCRIRE
+            </a>
+          
+          </td>
+        </tr>
+        {% endfor %} 
+      </tbody> 
+    </table>
+    <div class="d-flex flex-end">
+      {% do inscriptions.setPageRange(10) %}
+      {{knp_pagination_render(inscriptions,'pagination.html.twig')}}
+    </div>
 </div>
 {% endblock %}
+

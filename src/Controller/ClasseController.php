@@ -3,19 +3,15 @@
 namespace App\Controller;
 
 use App\Entity\Classe;
+use App\Form\ClasseType;
 use App\Repository\ClasseRepository;
 use Knp\Component\Pager\PaginatorInterface;
-use Doctrine\ORM\Tools\Pagination\Paginator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use ContainerMibWvKx\PaginatorInterface_82dac15;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Doctrine\Persistence\ObjectManager;
 use Doctrine\Persistence\ManagerRegistry;
 
 class ClasseController extends AbstractController
@@ -47,11 +43,7 @@ class ClasseController extends AbstractController
             $classe = new Classe();
         }
         
-        $form = $this->createFormBuilder($classe)
-                    ->add('libelle',TextType::class)
-                    ->add('filiere',TextType::class)
-                    ->add('niveau',TextType::class)
-                    ->getForm();
+        $form = $this->createForm(ClasseType::class,$classe);
 
         $form->handleRequest($request);
 
