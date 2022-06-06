@@ -65,7 +65,7 @@ class InscriptionController extends AbstractController
             $hashedPassword = $encoder->hashPassword($user, $pass);
 	
             $user = $this->getUser();
-            //dump($user);
+           // dump($user->getId());
 
             $insc->getEtudiant()->setMatricule('testMatricule');
             $insc->getEtudiant()->setLogin($email.'@gmail.com');
