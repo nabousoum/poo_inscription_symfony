@@ -30,9 +30,7 @@
            <td>{{module.id}}</td>
           <td>{{module.libelle}}</td>
           <td>
-            <a href="" class="btn btn-warning btn-circle">
-              <i class="fa-solid fa-pen-to-square"></i>
-            </a>
+           
             <a href="{{path('app_delete_module',{"id" : module.id})}}" class="btn btn-danger btn-circle" onclick="return confirm('Etes-vous sure de vouloir supprimer?')">
               <i class="fas fa-trash"></i>
             </a>

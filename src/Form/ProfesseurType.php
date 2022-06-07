@@ -3,11 +3,15 @@
 namespace App\Form;
 
 use App\Entity\Professeur;
+use App\Entity\Classe;
+use App\Entity\Module;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+
 
 class ProfesseurType extends AbstractType
 {
@@ -26,6 +30,20 @@ class ProfesseurType extends AbstractType
                'Masculin' => 'masculin',
                'Feminin' => 'feminin'
            ]])
+           ->add('classes',EntityType::class,[
+            'class' => Classe::class,
+            'multiple'=>true,
+            'choice_label' => 'libelle',
+        ])
+        ->add('modules',EntityType::class,[
+            'class' => Module::class,
+            'multiple'=>true,
+            'choice_label' => 'libelle',
+            'attr'=>[
+                'class'=>'select selectpicker',
+                'data-live-search'=>true
+            ]
+        ])
         ;
     }
 

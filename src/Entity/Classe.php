@@ -17,16 +17,17 @@ class Classe
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255,unique:true)]
     #[Assert\NotBlank(message:'le libelle ne doit pas etre vide')]
+    #[Assert\Unique(message:'le libelle est unique')]
     private $libelle;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Assert\NotBlank(message:'la filiere champ ne doit pas etre vide')]
+    #[Assert\NotBLank(message:'veuillez choisir une filiere')]
     private $filiere;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Assert\NotBlank(message:'le niveau champ ne doit pas etre vide')]
+    #[Assert\NotBlank(message:'veuillez choisir un niveau')]
     private $niveau;
 
     #[ORM\OneToMany(mappedBy: 'classe', targetEntity: Inscription::class)]
@@ -35,6 +36,9 @@ class Classe
     #[ORM\ManyToMany(targetEntity: Professeur::class, inversedBy: 'classes')]
     private $professeurs;
 
+    public static $niveaux = ['Choisir un niveau'=>'','licence 1'=>'licence 1','licence 2'=>'licence 2','licence 3'=>'licence 3','master 1'=>'master 1','master 2'=>'master 2','doctorat'=>'doctorat'];
+
+    public static $filieres = ['Choisir une filiere'=>'','Dev web'=>'Dev web','gestion'=>'gestion','dev web mobile'=>'dev web mobile','compta'=>'compta','anglais'=>'anglais'];
     public function __construct()
     {
         $this->inscriptions = new ArrayCollection();
@@ -135,4 +139,6 @@ class Classe
 
         return $this;
     }
+
+   
 }

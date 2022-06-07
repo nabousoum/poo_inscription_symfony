@@ -6,7 +6,7 @@
             <div class='alert alert-success'>
                 {{ message }}
             </div>
-        {% endfor %}
+    {% endfor %}
 <div class="container mt-5" >
         <div class="card o-hidden border-0 shadow-lg my-5">
             <div class="card-body p-0">
@@ -31,6 +31,8 @@
                                 {{ form_row(formClasse.libelle,{'attr':{'placeholder': "libelle de la classe"}}) }}
                                 {{ form_row(formClasse.filiere,{'attr':{'placeholder': "filiere de la classe"}}) }}
                                 {{ form_row(formClasse.niveau,{'attr':{'placeholder': "niveau de la classe"}}) }}
+                                {{ form_row(formClasse.professeurs) }}
+
                                 <button type="submit" class="btn btn-success">
                                 {% if editMode %}
                                     Modifier
