@@ -38,14 +38,6 @@ class ClasseType extends AbstractType
         //         'data-live-search'=>true
         //     ]
         // ])
-        ->add('professeurs',EntityType::class,[
-            'class'=>Professeur::class,
-            'multiple'=>true,
-            'attr'=>[
-                'class'=>'select selectpicker',
-                'data-live-search'=>true
-            ]
-        ])
         ;
     }
 

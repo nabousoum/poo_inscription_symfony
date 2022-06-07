@@ -10,10 +10,18 @@
 <br><br>
 <div class="container ml-5">
     <h2 align="center">LISTE DES MODULES</h2><br>
+    
       {{ form_start(formModule) }}
-          {{ form_row(formModule.libelle,{'attr':{'placeholder': "libelle de la module"}}) }}
-        <button type="submit" class="btn btn-primary">VALIDER</button>
+      <div class="row">
+          <div class="col">
+              {{ form_row(formModule.libelle,{'attr':{'placeholder': "libelle de la module",'class':"form-control form-control-lg w-50"}}) }}
+          <div>
+          <div class="col">
+            <button type="submit" class="btn btn-primary">VALIDER</button>
+          </div>
+      </div>
       {{ form_end(formModule)  }}
+ 
     <br>
     <table class="table table-striped">
       <thead>

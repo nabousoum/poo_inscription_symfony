@@ -1,5 +1,5 @@
   <!-- Navbar -->
-            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <nav  style="border-radius: 20px; border-color:pink; box-shadow: rgba(50, 50, 93, 0.25) 0px 6px 12px -2px, rgba(0, 0, 0, 0.3) 0px 3px 7px -3px; " class="navbar navbar-expand-lg navbar-light bg-light">
             <!-- Container wrapper -->
             <div class="container-fluid">
                 <!-- Toggle button -->
@@ -18,7 +18,7 @@
                 <!-- Collapsible wrapper -->
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Navbar brand -->
-                <a class="navbar-brand mt-2 mt-lg-0" href="#">
+                <a class="navbar-brand mt-2 mt-lg-0" href="{{ path('app_accueil') }}">
                     <img
                     src="{{asset('images/logo.webp')}}"
                     height="120"
@@ -29,16 +29,16 @@
                 <!-- Left links -->
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_classe') }}"><b>GESTION DES CLASSES</b></a>
+                        <a class="nav-link" href="{{ path('app_classe') }}"><b><i class="fa-solid fa-bars-progress"></i>GESTION DES CLASSES</b></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_module') }}"><b>GESTION DES MODULES</b></a>
+                        <a class="nav-link" href="{{ path('app_module') }}"><b><i class="fa-solid fa-bars-progress"></i>GESTION DES MODULES</b></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_professeur') }}"><b>GESTION DES PROFESSEURS</b></a>
+                        <a class="nav-link" href="{{ path('app_professeur') }}"><i class="fa-solid fa-bars-progress"></i><b>GESTION DES PROFESSEURS</b></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ path('app_inscription') }}"><b>GESTION DES INSCRIPTIONS</b></a>
+                        <a class="nav-link" href="{{ path('app_inscription') }}"><i class="fa-solid fa-bars-progress"></i><b>GESTION DES INSCRIPTIONS</b></a>
                     </li>
                 </ul>
                 <!-- Left links -->

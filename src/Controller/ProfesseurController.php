@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Classe;
+use App\Entity\Module;
 use App\Entity\Professeur;
 use App\Form\ProfesseurType;
 use App\Repository\ProfesseurRepository;
@@ -37,7 +39,7 @@ class ProfesseurController extends AbstractController
 
     #[Route('/professeur/new', name: 'app_create_prof')]
     #[Route('/professeur/{id}/edit', name: 'app_edit_prof')]
-     public function create(Professeur $prof = null,Request $request, EntityManagerInterface $manager){
+     public function create(Professeur $prof = null,Request $request, EntityManagerInterface $manager,ProfesseurRepository $repo){
  
          if(!$prof){
              $prof = new Professeur();
@@ -46,11 +48,25 @@ class ProfesseurController extends AbstractController
          $form = $this->createForm(ProfesseurType::class,$prof);
  
          $form->handleRequest($request);
- 
+        
          if($form->isSubmitted() && $form->isValid()){
- 
-             $manager->persist($prof);
-             $manager->flush();
+             $classes = $prof->getClasses();
+             $modules = $prof->getModules();
+             foreach ($modules as  $module) {
+                $newModule = new Module;
+                $newModule->setLibelle($module->getLibelle());
+                $prof->addModule($newModule);
+             }
+             foreach ($classes as  $classe) {
+                $newClasse = new Classe;
+                $newClasse->setLibelle($classe->getLibelle());
+                $newClasse->setFiliere($classe->getFiliere());
+                $newClasse->setNiveau($classe->getNiveau());
+                $prof->addClass($newClasse);
+             }
+            // $modules = $prof->getModules();
+        
+            $repo->add($prof,true);
              if(!$prof->getId()){
                  $this->addFlash('success','le professeur a bien été  modifié ');
              }

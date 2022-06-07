@@ -19,7 +19,7 @@ class Professeur extends Personne
     #[ORM\ManyToMany(targetEntity: Module::class, mappedBy: 'professeurs',cascade:['persist'])]
     private $modules;
 
-    #[ORM\ManyToMany(targetEntity: Classe::class, mappedBy: 'professeurs')]
+    #[ORM\ManyToMany(targetEntity: Classe::class, mappedBy: 'professeurs',cascade:['persist'])]
     private $classes;
 
     public function __construct()

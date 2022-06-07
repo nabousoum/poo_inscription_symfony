@@ -21,6 +21,7 @@
           <th scope="col">Matricule</th>
           <th scope="col">Adresse</th>
           <th scope="col">Sexe</th>
+          <th scope="col">Classe</th>
           <th scope="col">Actions</th>
 
 
@@ -34,6 +35,7 @@
           <td>{{inscription.etudiant.matricule}}</td>
           <td>{{inscription.etudiant.adresse}}</td>
           <td>{{inscription.etudiant.sexe}}</td>
+          <td>{{inscription.classe.libelle}}</td>
 
           <td> 
             <a href="{{path('app_create_reinscription',{"id" : inscription.id})}}" class="btn btn-warning btn-circle">

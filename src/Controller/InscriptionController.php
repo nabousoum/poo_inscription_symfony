@@ -73,11 +73,11 @@ class InscriptionController extends AbstractController
             $insc->getEtudiant()->setRoles(["ROLE_ETUDIANT"]);
             $insc->setAc($user);
 
-
             $manager->persist($insc->getEtudiant());
             $manager->flush();
 
             $insc->setEtat('en cours');
+
             $manager->persist($insc);
             $manager->flush();
             $this->addFlash('success','l inscription a bien été  enregistré ');
@@ -91,32 +91,26 @@ class InscriptionController extends AbstractController
 
     #[Route('/inscription/reinsc/{id}', name: 'app_create_reinscription')]
     public function reinscription(Etudiant $etudiant = null,Inscription $insc = null ,Request $request, EntityManagerInterface $manager, InscriptionRepository $repo,SessionInterface $session){
-       
-        $user = new User();
-        $user = $this->getUser();
-        $inscription = $repo->find($insc->getId());
+        $insc->setId(null);
+        $reIns = new Inscription;
+        $reIns->setEtudiant($insc->getEtudiant())
+        ->setClasse($insc->getClasse())
+        ->setAc($insc->getAc());        
+        //$inscription = $repo->find($reIns->getId());
 
-        $form = $this->createForm(InscriptionType::class,$insc);
+        $form = $this->createForm(InscriptionType::class,$reIns);
         $form->handleRequest($request);
-        //$insc = new Inscription();
-        $insc->setEtat('en cours');
-        $insc->setEtudiant($inscription->getEtudiant());
-        $insc->setClasse($inscription->getClasse());
-        //$insc->setAc($user);
-
+        $reIns->setEtat('en cours');
+    
         if($form->isSubmitted() && $form->isValid()){
-
-            // $manager->persist($insc);
-            // $manager->flush();
-
-            $repo->add($insc,true);
+            $repo->add($reIns,true);
             $this->addFlash('success','la reinscription a bien été  enregistré ');
 
         }
         return $this->render('inscription/create.html.twig', [
             'formInscription' => $form->createView(),
-            'editMode' => $insc->getId() !== null,
-            'inscription' => $inscription
+            'editMode' => $insc->getId() == null,
+            // 'inscription'=>$inscription
         ]);
 
     }

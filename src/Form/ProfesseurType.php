@@ -34,6 +34,11 @@ class ProfesseurType extends AbstractType
             'class' => Classe::class,
             'multiple'=>true,
             'choice_label' => 'libelle',
+            'attr'=>[
+                'class'=>'select selectpicker',
+                'data-live-search'=>true,
+                'placeholder'=>'les modules disponibles',
+            ]
         ])
         ->add('modules',EntityType::class,[
             'class' => Module::class,
@@ -41,7 +46,8 @@ class ProfesseurType extends AbstractType
             'choice_label' => 'libelle',
             'attr'=>[
                 'class'=>'select selectpicker',
-                'data-live-search'=>true
+                'data-live-search'=>true,
+                'placeholder'=>'les modules disponibles',
             ]
         ])
         ;
