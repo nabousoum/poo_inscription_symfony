@@ -13,6 +13,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Doctrine\Persistence\ManagerRegistry;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 class ClasseController extends AbstractController
 {
@@ -37,6 +38,7 @@ class ClasseController extends AbstractController
 
     #[Route('/classe/new', name: 'app_create_classe')]
    #[Route('/classe/{id}/edit', name: 'app_edit_classe')]
+   #[IsGranted('ROLE_RP', message: 'acces refuse')]
     public function create(Classe $classe = null,Request $request, EntityManagerInterface $manager){
 
         if(!$classe){

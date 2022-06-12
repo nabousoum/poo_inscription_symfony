@@ -6,15 +6,70 @@
 <style>
     .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+</style><br><br><br>
+<div class="container ml-5">
+    <h2 align ="center">LISTE DES DEMANDES EN COURS</h2><br>
+  
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Nom etudiant</th>
+          <th scope="col">Matricule etudiant</th>
+          <th scope="col">Demande</th>
+          <th scope="col">Etat demande</th>
+          <th scope="col">Actions</th>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ '/opt/lampp/htdocs/my_project_directory/src/Controller/DemandeController.php'|file_link(0) }}">src/Controller/DemandeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/opt/lampp/htdocs/my_project_directory/templates/demande/index.html.twig'|file_link(0) }}">templates/demande/index.html.twig</a></code></li>
-    </ul>
+        </tr>
+      </thead>
+      <tbody>
+        {% for demande in demandes %}
+            
+        <tr>
+          <td>{{demande.inscription.etudiant.nomComplet}}</td>
+          <td>{{demande.inscription.etudiant.matricule}}</td>
+          <td>{{demande.libelle}}</td>
+          <td>{{demande.etat}}</td>
+
+          <td> 
+            <a href="{{path('app_demande_valider',{"id" : demande.id})}}" class="btn btn-outline-success">
+              <i class="fa-solid fa-check"></i> Valider
+            </a>
+           <a href="{{path('app_demande_annuler',{"id" : demande.id})}}" class="btn btn-outline-danger">
+              <i class="fa-solid fa-ban"></i> Refuser
+            </a>
+          </td>
+        </tr>
+        {% endfor %} 
+      </tbody> 
+    </table><br><br><br>
+  <h2 align ="center">LISTE DES DEMANDES VALIDÉ</h2><br>
+  
+     <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Nom etudiant</th>
+          <th scope="col">Matricule etudiant</th>
+          <th scope="col">Demande</th>
+          <th scope="col">Etat demande</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for demandeV in demandesV %}
+            
+        <tr>
+          <td>{{demandeV.inscription.etudiant.nomComplet}}</td>
+          <td>{{demandeV.inscription.etudiant.matricule}}</td>
+          <td>{{demandeV.libelle}}</td>
+          <td>{{demandeV.etat}}</td>
+
+        </tr>
+        {% endfor %} 
+      </tbody> 
+    </table>
+    <div class="d-flex flex-end">
+      {% do demandes.setPageRange(10) %}
+      {{knp_pagination_render(demandes,'pagination.html.twig')}}
+    </div>
 </div>
 {% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+{% form_theme formDemande 'bootstrap_5_layout.html.twig' %}
+
+{% block body %}
+    {% for message in app.flashes('success') %}
+            <div class='alert alert-success'>
+                {{ message }}
+            </div>
+    {% endfor %}<br><br><br><br>
+<div class="container mt-5" >
+        <div class="card o-hidden border-0 shadow-lg my-5"  style="border-radius: 50px;">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-block bg-register-image">
+                       <img src="{{asset('images/register2.png')}}" class="img-fluid">
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">
+                                    FORMULER VOTRE DEMANDE
+                                </h1>
+                            </div>
+                            {{ form_start(formDemande) }}
+
+                                {{ form_row(formDemande.libelle,{'attr':{'placeholder': "libelle de la demande"}}) }}
+                                {# {{ form_row(formClasse.professeurs) }} #}
+
+                                <button type="submit" class="btn btn-success">
+                                    envoyer
+                                </button>
+                            {{ form_end(formDemande)  }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

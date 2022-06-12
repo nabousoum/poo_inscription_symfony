@@ -16,10 +16,13 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 
 class InscriptionController extends AbstractController
 {
     #[Route('/inscription', name: 'app_inscription')]
+    #[IsGranted('ROLE_AC', message: 'acces refuse')]
     public function index(
         InscriptionRepository $repo, SessionInterface $session,
         PaginatorInterface $paginator,
