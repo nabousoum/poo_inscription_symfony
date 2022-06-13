@@ -44,12 +44,20 @@
                         </li>
                     {% endif %}
                      {% if is_granted('ROLE_AC') %}
+                      <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_classe') }}"><b><i class="fa-solid fa-bars-progress"></i>LISTE DES CLASSES</b></a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link" href="{{ path('app_inscription') }}"><i class="fa-solid fa-bars-progress"></i><b>GESTION DES INSCRIPTIONS</b></a>
-                        </li>
+                        </li> 
+                         <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_demande') }}"><i class="fa-solid fa-bars-progress"></i><b>LISTE DES DEMANDES</b></a>
+                        </li>  
                     {% endif %}
                    {% if is_granted('ROLE_ETUDIANT') %}
-                    
+                      <li class="nav-item">
+                            <a class="nav-link" href="{{ path('app_classe') }}"><b><i class="fa-solid fa-bars-progress"></i>LISTE DES CLASSES</b></a>
+                        </li>
                      <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_demande_etu') }}"><i class="fa-solid fa-bars-progress"></i><b>LISTE DE MES DEMANDES</b></a>
                     </li>

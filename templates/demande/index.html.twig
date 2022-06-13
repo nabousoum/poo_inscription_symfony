@@ -17,8 +17,9 @@
           <th scope="col">Matricule etudiant</th>
           <th scope="col">Demande</th>
           <th scope="col">Etat demande</th>
-          <th scope="col">Actions</th>
-
+          {% if is_granted('ROLE_RP') %}
+            <th scope="col">Actions</th>
+          {% endif %}
 
         </tr>
       </thead>
@@ -30,15 +31,17 @@
           <td>{{demande.inscription.etudiant.matricule}}</td>
           <td>{{demande.libelle}}</td>
           <td>{{demande.etat}}</td>
-
-          <td> 
-            <a href="{{path('app_demande_valider',{"id" : demande.id})}}" class="btn btn-outline-success">
-              <i class="fa-solid fa-check"></i> Valider
-            </a>
-           <a href="{{path('app_demande_annuler',{"id" : demande.id})}}" class="btn btn-outline-danger">
-              <i class="fa-solid fa-ban"></i> Refuser
-            </a>
-          </td>
+          {% if is_granted('ROLE_RP') %}
+               <td> 
+                <a href="{{path('app_demande_valider',{"id" : demande.id})}}" class="btn btn-outline-success">
+                  <i class="fa-solid fa-check"></i> Valider
+                </a>
+                <a href="{{path('app_demande_annuler',{"id" : demande.id})}}" class="btn btn-outline-danger">
+                  <i class="fa-solid fa-ban"></i> Refuser
+                </a>
+                </td>
+          {% endif %}
+         
         </tr>
         {% endfor %} 
       </tbody> 

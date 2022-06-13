@@ -4,16 +4,17 @@ namespace App\Controller;
 
 use App\Entity\Classe;
 use App\Form\ClasseType;
+use App\Repository\UserRepository;
 use App\Repository\ClasseRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Doctrine\Persistence\ManagerRegistry;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ClasseController extends AbstractController
 {
@@ -21,7 +22,8 @@ class ClasseController extends AbstractController
     public function index(
         ClasseRepository $repo, SessionInterface $session,
         PaginatorInterface $paginator,
-        Request $request
+        Request $request,
+        UserRepository $users
         ):Response{
         //$data = $repo->findAll();
         $data = $repo->findBy(array(), array('id' => 'desc'));
@@ -32,7 +34,8 @@ class ClasseController extends AbstractController
         );
         return $this->render('classe/index.html.twig', [
             'controller_name' => 'ClasseController',
-            'classes'=>$classes
+            'classes'=>$classes,
+            'users' => $users->findAll()
         ]);
     }
 

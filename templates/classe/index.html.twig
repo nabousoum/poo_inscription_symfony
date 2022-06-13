@@ -10,9 +10,11 @@
 <br><br>
 <div class="container ml-5">
     <h2 align ="center">LISTE DES CLASSES</h2><br>
-    <a href="{{path('app_create_classe')}}">
-      <button type="button" class="btn btn-primary">AJOUTER</button>
-    </a>
+    {% if is_granted('ROLE_RP') %}
+      <a href="{{path('app_create_classe')}}">
+        <button type="button" class="btn btn-primary">AJOUTER</button>
+      </a>
+      {% endif %}
     <br><br>
     <table class="table table-striped">
       <thead>
@@ -20,8 +22,9 @@
           <th scope="col">Libelle</th>
           <th scope="col">Filiere</th>
           <th scope="col">Niveau</th>
-          <th scope="col">Actions</th>
-
+          {% if is_granted('ROLE_RP') %}
+             <th scope="col">Actions</th>
+          {% endif %}
         </tr>
       </thead>
       <tbody>
@@ -31,17 +34,20 @@
           <td>{{classe.libelle}}</td>
           <td>{{classe.filiere}}</td>
           <td>{{classe.niveau}}</td>
-          <td> 
-            <a href="{{path('app_edit_classe',{"id" : classe.id})}}" class="btn btn-warning btn-circle">
-              <i class="fa-solid fa-pen-to-square"></i>
-            </a>
-            <a href="{{path('app_delete_classe',{"id" : classe.id})}}" class="btn btn-danger btn-circle" onclick="return confirm('Etes-vous sure de vouloir supprimer?')">
-              <i class="fas fa-trash"></i>
-            </a>
-            <a href="{{path('app_detail_classe',{"id" : classe.id})}}" class="btn btn-info btn-circle">
-              <i class="fas fa-info"></i>
-            </a>
+          {% if is_granted('ROLE_RP') %}
+            <td> 
+              <a href="{{path('app_edit_classe',{"id" : classe.id})}}" class="btn btn-warning btn-circle">
+                <i class="fa-solid fa-pen-to-square"></i>
+              </a>
+              <a href="{{path('app_delete_classe',{"id" : classe.id})}}" class="btn btn-danger btn-circle" onclick="return confirm('Etes-vous sure de vouloir supprimer?')">
+                <i class="fas fa-trash"></i>
+              </a>
+              <a href="{{path('app_detail_classe',{"id" : classe.id})}}" class="btn btn-info btn-circle">
+                <i class="fas fa-info"></i>
+              </a>
           </td>
+          {% endif %}
+         
         </tr>
         {% endfor %} 
       </tbody> 
