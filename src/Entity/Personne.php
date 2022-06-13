@@ -17,15 +17,15 @@ class Personne
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]
-    private $id;
+    protected $id;
 
     #[ORM\Column(type: 'string', length: 255)]
     #[Assert\NotBlank(message:'le nom ne doit pas etre vide')]
-    private $nomComplet;
+    protected $nomComplet;
 
     #[ORM\Column(type: 'string', length: 255)]
     #[Assert\NotBlank(message:'le sexe ne doit pas etre vide')]
-    private $sexe;
+    protected $sexe;
 
     public function getId(): ?int
     {
