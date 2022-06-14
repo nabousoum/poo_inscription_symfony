@@ -55,9 +55,7 @@
                         </li>  
                     {% endif %}
                    {% if is_granted('ROLE_ETUDIANT') %}
-                      <li class="nav-item">
-                            <a class="nav-link" href="{{ path('app_classe') }}"><b><i class="fa-solid fa-bars-progress"></i>LISTE DES CLASSES</b></a>
-                        </li>
+                   
                      <li class="nav-item">
                         <a class="nav-link" href="{{ path('app_demande_etu') }}"><i class="fa-solid fa-bars-progress"></i><b>LISTE DE MES DEMANDES</b></a>
                     </li>
@@ -66,7 +64,7 @@
                     </li>
 
                     {% endif %}
-
+             
                
                 </ul>
                 <!-- Left links -->
@@ -91,3 +89,7 @@
             <!-- Container wrapper -->
             </nav>
             <!-- Navbar -->
+
+<div class="fixed-bottom">
+    <marquee><h5>Année scolaire {{app.session.get('annee')[0].libelle}} !!</h5></marquee>
+</div>

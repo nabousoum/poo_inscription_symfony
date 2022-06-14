@@ -44,7 +44,7 @@ class DemandeController extends AbstractController
     }
 
     #[Route('/demande/etu', name: 'app_demande_etu')]
-    #[IsGranted('ROLE_ETUDIANT', message: 'acces refuse')]
+    //#[IsGranted('ROLE_ETUDIANT', message: 'acces refuse')]
     public function demandeEtu(
         DemandeRepository $repo, SessionInterface $session,
         PaginatorInterface $paginator,

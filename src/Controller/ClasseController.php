@@ -18,7 +18,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class ClasseController extends AbstractController
 {
-    #[Route('/classe/rp', name: 'app_classe')]
+    #[Route('/classe', name: 'app_classe')]
     public function index(
         ClasseRepository $repo, SessionInterface $session,
         PaginatorInterface $paginator,

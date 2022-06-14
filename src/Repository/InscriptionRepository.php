@@ -39,6 +39,19 @@ class InscriptionRepository extends ServiceEntityRepository
         }
     }
 
+    public function genererMatricule()
+    {
+       $caracteres = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+       $longueurMax = strlen($caracteres);
+       $chaineAleatoire = '';
+       for ($i = 0; $i <10; $i++)
+       {
+         $chaineAleatoire .= $caracteres[rand(0, $longueurMax - 1)];
+       }
+       return $chaineAleatoire;
+    }
+   
+
 //    /**
 //     * @return Inscription[] Returns an array of Inscription objects
 //     */

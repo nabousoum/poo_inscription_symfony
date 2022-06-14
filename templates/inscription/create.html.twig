@@ -22,7 +22,7 @@
                                 
                                   {% if editMode %}
                                         Reinscrire l etudiant <br>
-                                        Matricule : 
+                                        Matricule : {{ matricule }}
                                       
                                     {% else %}
                                           Inscrire un etudiant
@@ -30,11 +30,9 @@
                                 </h1>
                             </div>
                             {{ form_start(formInscription) }}
-                         
-
-                                {{ form_row(formInscription.etudiant.nomComplet,{'attr':{'placeholder': "nom complet de l etudiant" }}) }}
-                                {{ form_row(formInscription.etudiant.sexe,{'attr':{'placeholder': "sexe de l etudiant"}}) }}
-                                {{ form_row(formInscription.etudiant.adresse,{'attr':{'placeholder': "adresse de l etudiant"}}) }}
+                                    {{ form_row(formInscription.etudiant.nomComplet,(editMode ? {'attr':{'placeholder': "nom complet de l etudiant",'readonly':'yes'}} : {'attr':{'placeholder': "nom complet de l etudiant"}})) }}
+                                    {{ form_row(formInscription.etudiant.adresse,(editMode ? {'attr':{'placeholder': "adresse de l etudiant",'readonly':'yes'}} : {'attr':{'placeholder': "adresse de l etudiant"}})) }}
+                                    {{ form_row(formInscription.etudiant.sexe,{'attr':{} }) }}    
                                {{ form_row(formInscription.classe,{'attr':{'placeholder': "adresse de l etudiant"}}) }}
                                 <button  type="submit" class="btn btn-success">Ajouter</button>
                             {{ form_end(formInscription)  }}

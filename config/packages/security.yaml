@@ -31,9 +31,17 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-         - { path: ^/rp, roles: ROLE_RP }
-         - { path: ^/ac, roles: ROLE_AC }
+         - { path: ^/classe, roles: [ROLE_RP,ROLE_AC] }
+         - { path: ^/classe/new, roles : ROLE_RP }
+         - { path: ^/module, roles : ROLE_RP }
+         - { path: ^/module/new, roles : ROLE_RP }
+         - { path: ^/professeur, roles : ROLE_RP }
+         - { path: ^/professeur/new, roles : ROLE_RP }
+         - { path: ^/inscription, roles: ROLE_AC }
+         - { path: ^/inscription/new, roles: ROLE_AC }
          - { path: ^/etudiant, roles: ROLE_ETUDIANT }
+         - { path: ^/demande/etu, roles: ROLE_ETUDIANT }
+         - { path: ^/demande/new, roles: ROLE_ETUDIANT }
         # - { path: ^/profile, roles: ROLE_USER }
 
 when@test:
